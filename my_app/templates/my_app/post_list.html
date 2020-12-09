@@ -1,0 +1,22 @@
+{% load static %}
+<html>
+    <head>
+        <title>Прикладное ПО 1</title>
+        <link rel="stylesheet" href="{% static 'css/app.css'%}">
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Домашняя страница</a></h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                {% for client in clients %}
+                    <div class="post">
+                        <p>{{ client.surname }} {{ client.name }} {{ client.otchestvo }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
