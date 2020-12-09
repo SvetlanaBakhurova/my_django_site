@@ -26,7 +26,10 @@ SECRET_KEY = 'drni=$y&m@95j3c4our_c_&4dcj31uqy4=(h^ww31%pi6zxbti'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1:8000'
+    'svetlanabakhurova.pythonanywhere.com'
+]
 
 
 # Application definition
