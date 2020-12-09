@@ -27,7 +27,7 @@ SECRET_KEY = 'drni=$y&m@95j3c4our_c_&4dcj31uqy4=(h^ww31%pi6zxbti'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1:8000',
+    '127.0.0.1',
     'svetlanabakhurova.pythonanywhere.com',
 ]
 
