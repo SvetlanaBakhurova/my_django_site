@@ -23,12 +23,7 @@
                     <th>ID</th>
                     <th>Баланс</th>
                 </tr>
-                {% for fund in funds %}
-                <tr>
-                    <td>{{ fund.id }}</td>
-                    <td>{{ fund.balance }}</td>
-                </tr>
-                {% endfor %}
+                {{ table|safe }}
             </table>
         </div>
 

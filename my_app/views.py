@@ -11,15 +11,41 @@ def index(request):
 
 def clients_list(request):
     clients = Client.objects.order_by('last_name')
-    return render(request, 'my_app/clients.html', {'clients': clients})
+
+    table = ""
+    for client in clients:
+        table += """<tr>
+            <td>%s %s %s</td>
+            <td>%i</td>
+        </tr>""" % (client.last_name, client.first_name, client.middle_name if client.middle_name else "", client.policy_number)
+
+    return render(request, 'my_app/clients.html', {'table': table})
 
 def funds_list(request):
     funds = Fund.objects.all()
-    return render(request, 'my_app/funds.html', {'funds': funds})
+
+    table = ""
+    for fund in funds:
+        table += """<tr>
+            <td>%s</td>
+            <td>%i</td>
+        </tr>""" % (fund.id, fund.balance)
+    return render(request, 'my_app/funds.html', {'table': table})
 
 def contracts_list(request):
     contracts = Contract.objects.order_by('date')
-    return render(request, 'my_app/contracts.html', {'contracts': contracts})
+
+    table = ""
+    for contract in contracts:
+        table += """<tr>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%i</td>
+            <td>%s</td>
+            <td>%s</td>
+        </tr>""" % (contract.client, contract.fund, contract.insurance_amount, contract.conditions, contract.date)
+
+    return render(request, 'my_app/contracts.html', {'table': table})
 
 def clients_new(request):
     if request.method == "POST":

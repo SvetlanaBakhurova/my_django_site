@@ -23,12 +23,7 @@
                     <th>Полное имя</th>
                     <th>Телефон</th>
                 </tr>
-                {% for client in clients %}
-                <tr>
-                    <td>{{ client.last_name }} {{ client.first_name }} {% if client.middle_name %} {{ client.middle_name }} {% endif %}</td>
-                    <td>{{ client.policy_number }}</td>
-                </tr>
-                {% endfor %}
+                {{ table|safe }}
             </table>
         </div>
 
