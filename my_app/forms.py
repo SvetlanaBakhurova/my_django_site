@@ -1,7 +1,18 @@
 from django import forms
-from .models import Client
+from .models import *
 
-class PostForm(forms.ModelForm):
+class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ('name', 'surname', 'otchestvo', 'address', 'phone_number',)
+        fields = ('first_name', 'last_name', 'middle_name', 'policy_number',)
+
+class FundForm(forms.ModelForm):
+    class Meta:
+        model = Fund
+        fields = ('balance', )
+
+class ContractForm(forms.ModelForm):
+    class Meta:
+        model = Contract
+        fields = ('client', 'fund', 'insurance_amount', 'conditions',)
+

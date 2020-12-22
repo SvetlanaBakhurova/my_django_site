@@ -1,0 +1,36 @@
+{% load static %}
+<html>
+    <head>
+        <title>Управление заказами</title>
+        <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    </head>
+
+    <body>
+        <div class="nav">
+            <a href="/"><img src="{% static 'img/logo_transparent.png'%}"></a>
+            <a href="/clients/"><div>Список клиентов</div></a>
+            <a href="/funds/"><div>Список фондов</div></a>
+            <a href="/contracts/"><div>Список договоров</div></a>
+
+            <a href="/clients/new/"><div>Добавить клиента</div></a>
+            <a href="/funds/new/"><div>Добавить фонд</div></a>
+            <a href="/contracts/new/"><div>Добавить договор</div></a>
+        </div>
+
+        <div class="content">
+            <table>
+                <tr>
+                    <th>Полное имя</th>
+                    <th>Телефон</th>
+                </tr>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.last_name }} {{ client.first_name }} {% if client.middle_name %} {{ client.middle_name }} {% endif %}</td>
+                    <td>{{ client.policy_number }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </body>
+</html>

@@ -1,20 +1,59 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Client
-from .forms import PostForm
+from .models import *
+from .forms import *
+from django.utils import timezone
+from django.shortcuts import redirect
+from django.db.models import Sum
 
-# Create your views here.
-def post_list(request):
-    clients = Client.objects.order_by('surname')
-    return render(request, 'my_app/post_list.html', {'clients': clients})
+def index(request):
+    return render(request, 'my_app/index.html', {})
 
-def post_new(request):
+def clients_list(request):
+    clients = Client.objects.order_by('last_name')
+    return render(request, 'my_app/clients.html', {'clients': clients})
+
+def funds_list(request):
+    funds = Fund.objects.all()
+    return render(request, 'my_app/funds.html', {'funds': funds})
+
+def contracts_list(request):
+    contracts = Contract.objects.order_by('date')
+    return render(request, 'my_app/contracts.html', {'contracts': contracts})
+
+def clients_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = ClientForm(request.POST)
+
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('post_list')
+            client = form.save(commit=False)
+            client.save()
+            return redirect('clients_list')
     else:
-        form = PostForm()
-        return render(request, 'my_app/post_edit.html', {'form': form})
+        form = ClientForm()
+        return render(request, 'my_app/clients_new.html', {'form': form})
+
+def funds_new(request):
+    if request.method == "POST":
+        form = FundForm(request.POST)
+
+        if form.is_valid():
+            fund = form.save(commit=False)
+            fund.save()
+            return redirect('funds_list')
+    else:
+        form = FundForm()
+        return render(request, 'my_app/funds_new.html', {'form': form})
+
+def contracts_new(request):
+    if request.method == "POST":
+        form = ContractForm(request.POST)
+
+        if form.is_valid():
+            contract = form.save(commit=False)
+            contract.date = timezone.now()
+            contract.save()
+            return redirect('contracts_list')
+    else:
+        form = ContractForm()
+        return render(request, 'my_app/contracts_new.html', {'form': form})

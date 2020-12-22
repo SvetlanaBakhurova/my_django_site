@@ -1,9 +1,8 @@
 from django.contrib import admin
 from .models import Client
-from .models import Service
+from .models import Fund
 from .models import Contract
 
-# Register your models here.
 admin.site.register(Client)
-admin.site.register(Service)
+admin.site.register(Fund)
 admin.site.register(Contract)

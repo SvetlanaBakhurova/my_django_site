@@ -1,27 +1,30 @@
 from django.db import models
-from django.utils import timezone
 
-# Create your models here.
+
+# клиент
 class Client(models.Model):
-    name = models.CharField(max_length=30)
-    surname = models.CharField(max_length=30)
-    otchestvo = models.CharField(max_length=30)
-    address = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=12)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    middle_name = models.CharField(max_length=30, null=True, blank=True)
+    policy_number = models.PositiveIntegerField() # номер страхового полиса
 
     def __str__(self):
-        return self.surname + " " + self.name + " " + self.otchestvo
+        return "%s %s" % (self.last_name, self.first_name,)
 
-class Service(models.Model):
-    name = models.CharField(max_length=30)
-    description = models.TextField()
+# фонд
+class Fund(models.Model):
+    balance = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.name
+        return str(self.id)
 
+# договор
 class Contract(models.Model):
-    client = models.ForeignKey('Client', on_delete=models.CASCADE)
-    service = models.ForeignKey('Service', on_delete=models.CASCADE)
-    status = models.CharField(max_length=15)
-    date = models.DateField()
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    fund = models.ForeignKey(Fund, on_delete=models.CASCADE)
+    date = models.DateField() # дата заключения
+    insurance_amount = models.PositiveIntegerField() # сумма размера страхования
+    conditions = models.TextField()
 
+    def __str__(self):
+        return "%s: %s" % (self.date, self.client, )
